@@ -5,6 +5,10 @@ from ..database import get_db
 from typing import Optional,List
 from sqlalchemy import func
 
+from fastapi_limiter import FastAPILimiter
+from fastapi_limiter.depends import RateLimiter
+from redis.asyncio import Redis
+
 router = APIRouter(
     prefix = "/posts",
     tags = ['Posts']
@@ -15,9 +19,9 @@ my_posts = [{"title":"title of post 1", "content":"content of post 1", "id":1},
             {"title":"favourite foods","content":"I like pizza","id":2}]
 
 
-@router.get("/")
-async def root():
-    return {"message": "khela hobe!!!"}
+# @router.get("/")
+# async def root():
+#     return {"message": "khela hobe!!!"}
 
 
 @router.get("/sqlalchemy")
@@ -28,7 +32,7 @@ def test_posts(db: Session = Depends(get_db)):
 
 
 #@router.get("/",response_model=List[schemas.PostOut])
-@router.get("/",response_model=List[schemas.Post])
+@router.get("/",response_model=List[schemas.Post],dependencies=[Depends(RateLimiter(times=2, seconds=5))])
 def get_posts(db: Session = Depends(get_db),current_user :int = Depends(oauth2.get_current_user),limit:int = 10,skip:int=0,search: Optional[str]="" ):
     # cursor.execute("""SELECT * FROM posts""")
     # posts = cursor.fetchall()

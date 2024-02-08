@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from .config import settings
-
+import redis
 # import psycopg2
 # from psycopg2.extras import RealDictCursor
 # import time
@@ -27,7 +27,7 @@ def get_db():
         db.close()
 
 
-
+cache = redis.Redis(host=settings.database_hostname, port=settings.redis_port,  decode_responses=True)
 
 # while True:
 #     try:

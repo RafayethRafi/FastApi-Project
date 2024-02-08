@@ -35,7 +35,7 @@ class PostCreate(PostBase):
 #     created_at : datetime
 
 #     class Config:
-#         orm_mode = True
+#         from_attributes = True
 
 
 class UserOut(BaseModel):
@@ -44,7 +44,7 @@ class UserOut(BaseModel):
     created_at : datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
         
 
@@ -56,14 +56,14 @@ class Post(PostBase):
     owner : UserOut
     
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class PostOut(PostBase):
     Post : Post
     votes : int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class UserCreate(BaseModel):

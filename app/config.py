@@ -11,6 +11,9 @@ class Settings(BaseSettings):
     algorithm : str
     access_token_expire_minutes : int
 
+    redis_port : str
+
+
     class Config:
         env_file = ".env"
 
