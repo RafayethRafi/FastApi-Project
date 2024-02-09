@@ -33,8 +33,8 @@ def get_db():
 # cache = redis.Redis(host=settings.database_hostname, port=settings.redis_port,  decode_responses=True)
 # r = redis.from_url(os.environ.get("REDIS_URL"))
     
-url = urlparse(os.environ.get("REDIS_ENDPOINT_URI"))
-r = redis.Redis(host=url.hostname, port=url.port, password=url.password, ssl=True, ssl_cert_reqs=None)
+# url = urlparse(os.environ.get("REDIS_URL"))
+# r = redis.Redis(host=url.hostname, port=url.port, password=url.password, ssl=True, ssl_cert_reqs=None)
 
 # while True:
 #     try:
