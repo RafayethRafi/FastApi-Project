@@ -12,10 +12,10 @@ class Settings(BaseSettings):
     access_token_expire_minutes : int
 
     redis_port : str
-    redis_url : str
-    redis_password : str
+    # redis_url : str
+    # redis_password : str
     redis_host : str
-    redis_tls_url : str
+    # redis_tls_url : str
 
 
     class Config:
