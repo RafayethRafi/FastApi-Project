@@ -15,7 +15,7 @@ class Settings(BaseSettings):
     redis_url : str
     redis_password : str
     redis_host : str
-    # redis_cli : str
+    redis_tls_url : str
 
 
     class Config:
