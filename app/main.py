@@ -16,14 +16,14 @@ models.Base.metadata.create_all(bind=engine)
 import os
 from fastapi_limiter import FastAPILimiter
 from fastapi_limiter.depends import RateLimiter
-from redis.asyncio import redis
+from redis.asyncio import Redis
 
 
 app = FastAPI()
 
 @app.on_event("startup")
 async def startup():
-    redis_connection = redis.from_url("redis://localhost", encoding="utf-8", decode_responses=True)
+    redis_connection = Redis.from_url("redis://localhost", encoding="utf-8", decode_responses=True)
     await FastAPILimiter.init(redis_connection)
 
 
