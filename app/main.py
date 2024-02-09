@@ -23,9 +23,13 @@ app = FastAPI()
 
 @app.on_event("startup")
 async def startup():
-    redis_connection = Redis.from_url("redis://localhost", encoding="utf-8", decode_responses=True)
-    await FastAPILimiter.init(redis_connection)
-
+    host = os.getenv("REDIS_HOST", "localhost")
+    port = os.getenv("REDIS_PORT", 6379)
+    password = os.getenv("REDIS_PASSWORD", None)
+    redis = Redis(
+        host=host, port=port, password=password, decode_responses=True
+    )
+    await FastAPILimiter.init(redis)
 
 
 origins = ["*"]
