@@ -3,6 +3,9 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from .config import settings
 import redis
+import os
+from urllib.parse import urlparse
+
 # import psycopg2
 # from psycopg2.extras import RealDictCursor
 # import time
@@ -27,7 +30,11 @@ def get_db():
         db.close()
 
 
-cache = redis.Redis(host=settings.database_hostname, port=settings.redis_port,  decode_responses=True)
+# cache = redis.Redis(host=settings.database_hostname, port=settings.redis_port,  decode_responses=True)
+# r = redis.from_url(os.environ.get("REDIS_URL"))
+    
+url = urlparse(os.environ.get("REDIS_URL"))
+r = redis.Redis(host=url.hostname, port=url.port, password=url.password, ssl=True, ssl_cert_reqs=None)
 
 # while True:
 #     try:
